@@ -16,22 +16,22 @@ var (
 	password         = "DZdHUuasuMU31wwed/fO+8uTRm4EyJq6"
 	serverAddrString = "106.52.224.60:22"
 
-	localAddrString   = "localhost:62975"
-	remoteAddrString  = "bj-cdb-m3cl1jfs.sql.tencentcdb.com:62975"
-	localAddrString2  = "localhost:61365"
-	remoteAddrString2 = "bj-cdb-6blgboli.sql.tencentcdb.com:61365"
-	localAddrString3  = "localhost:61207"
-	remoteAddrString3 = "sh-cdb-ojdb9hns.sql.tencentcdb.com:61207"
-	localAddrString5  = "localhost:61990"
-	remoteAddrString5 = "mysql-log-for-outer-select.xeknow.com:61990"
-	localAddrString6  = "localhost:62972"
-	remoteAddrString6 = "bj-cdb-jxuuzz8q.sql.tencentcdb.com:62972"
-	localAddrString7  = "localhost:62992"
-	remoteAddrString7 = "bj-cdb-35o08k06.sql.tencentcdb.com:62992"
-	localAddrString8  = "localhost:61989"
-	remoteAddrString8 = "bj-cdb-eqx67j7k.sql.tencentcdb.com:61989"
-	//localAddrString9   = "localhost:3306"
-	//remoteAddrString9  = "10.66.163.189:3306"
+	localAddrString    = "localhost:62975"
+	remoteAddrString   = "bj-cdb-m3cl1jfs.sql.tencentcdb.com:62975"
+	localAddrString2   = "localhost:61365"
+	remoteAddrString2  = "bj-cdb-6blgboli.sql.tencentcdb.com:61365"
+	localAddrString3   = "localhost:61207"
+	remoteAddrString3  = "sh-cdb-ojdb9hns.sql.tencentcdb.com:61207"
+	localAddrString5   = "localhost:61990"
+	remoteAddrString5  = "mysql-log-for-outer-select.xeknow.com:61990"
+	localAddrString6   = "localhost:62972"
+	remoteAddrString6  = "bj-cdb-jxuuzz8q.sql.tencentcdb.com:62972"
+	localAddrString7   = "localhost:62992"
+	remoteAddrString7  = "bj-cdb-35o08k06.sql.tencentcdb.com:62992"
+	localAddrString8   = "localhost:61989"
+	remoteAddrString8  = "bj-cdb-eqx67j7k.sql.tencentcdb.com:61989"
+	localAddrString9   = "localhost:3306"
+	remoteAddrString9  = "10.66.163.189:3306"
 	localAddrString10  = "localhost:61581"
 	remoteAddrString10 = "bj-cdb-3gza49ze.sql.tencentcdb.com:61581"
 
@@ -63,7 +63,7 @@ func forward(localConn net.Conn, config *ssh.ClientConfig, serverAddr_agement, r
 	// Setup sshClientConn (type *ssh.ClientConn)
 	sshClientConn, err := ssh.Dial("tcp", serverAddr_agement, config)
 	if err != nil {
-		fmt.Sprintf("ssh.Dial failed: %s", err)
+		fmt.Errorf("ssh.Dial failed: %s", err)
 	}
 	// Setup sshConn (type net.Conn)
 	sshConn, err := sshClientConn.Dial("tcp", remoteAddr_agement)
@@ -71,57 +71,57 @@ func forward(localConn net.Conn, config *ssh.ClientConfig, serverAddr_agement, r
 	go func() {
 		_, err = io.Copy(sshConn, localConn)
 		if err != nil {
-			fmt.Sprintf("Copy localConn.Reader to sshConn.Writer io.Copy failed: %v", err)
+			fmt.Errorf("Copy localConn.Reader to sshConn.Writer io.Copy failed: %v", err)
 		}
 	}()
 	// Copy sshConn.Reader to localConn.Writer
 	go func() {
 		_, err = io.Copy(localConn, sshConn)
 		if err != nil {
-			fmt.Sprintf("Copy sshConn.Reader to localConn.Writer io.Copy failed: %v", err)
+			fmt.Errorf("Copy sshConn.Reader to localConn.Writer io.Copy failed: %v", err)
 		}
 	}()
 }
 
 func execRoot() {
 	fmt.Println("一分钟一次检测")
-	//testDb1()
-	//testDb2()
-	//testDb3()
-	//testDb4()
-	//testDb5()
-	//testDb6()
-	//testDb7()
-	//testDb8()
+	testDb1()
+	testDb2()
+	testDb3()
+	testDb4()
+	testDb5()
+	testDb6()
+	testDb7()
+	testDb8()
 	//testDb9()
-	//testDb10()
-	//testDb11()
-	//testDb12()
-	//testDb13()
-	//testDb14()
-	//testDb15()
+	testDb10()
+	testDb11()
+	testDb12()
+	testDb13()
+	testDb14()
+	testDb15()
 	testDb16()
 	//testDb17() //上报库
 	fmt.Println("检测完成")
 }
 
 func main() {
-	//go sshForward(localAddrString, serverAddrString, remoteAddrString)
-	//go sshForward(localAddrString2, serverAddrString, remoteAddrString2)
-	//go sshForward(localAddrString3, serverAddrString, remoteAddrString3)
-	//go sshForward(localAddrString5, serverAddrString, remoteAddrString5)
-	//go sshForward(localAddrString6, serverAddrString, remoteAddrString6)
-	//go sshForward(localAddrString7, serverAddrString, remoteAddrString7)
-	//go sshForward(localAddrString8, serverAddrString, remoteAddrString8)
-	////go sshForward(localAddrString9, serverAddrString, remoteAddrString9)
-	//go sshForward(localAddrString10, serverAddrString, remoteAddrString10)
-	//go sshForward(localAddrString11, serverAddrString, remoteAddrString11)
-	//go sshForward(localAddrString12, serverAddrString, remoteAddrString12)
-	//go sshForward(localAddrString13, serverAddrString, remoteAddrString13)
-	//go sshForward(localAddrString14, serverAddrString, remoteAddrString14)
-	//go sshForward(localAddrString15, serverAddrString, remoteAddrString15)
-	//go sshForward(localAddrString16, serverAddrString, remoteAddrString16)
-	//go sshForward(localAddrString17, serverAddrString, remoteAddrString17)
+	go sshForward(localAddrString, serverAddrString, remoteAddrString)
+	go sshForward(localAddrString2, serverAddrString, remoteAddrString2)
+	go sshForward(localAddrString3, serverAddrString, remoteAddrString3)
+	go sshForward(localAddrString5, serverAddrString, remoteAddrString5)
+	go sshForward(localAddrString6, serverAddrString, remoteAddrString6)
+	go sshForward(localAddrString7, serverAddrString, remoteAddrString7)
+	go sshForward(localAddrString8, serverAddrString, remoteAddrString8)
+	//go sshForward(localAddrString9, serverAddrString, remoteAddrString9)
+	go sshForward(localAddrString10, serverAddrString, remoteAddrString10)
+	go sshForward(localAddrString11, serverAddrString, remoteAddrString11)
+	go sshForward(localAddrString12, serverAddrString, remoteAddrString12)
+	go sshForward(localAddrString13, serverAddrString, remoteAddrString13)
+	go sshForward(localAddrString14, serverAddrString, remoteAddrString14)
+	go sshForward(localAddrString15, serverAddrString, remoteAddrString15)
+	go sshForward(localAddrString16, serverAddrString, remoteAddrString16)
+	go sshForward(localAddrString17, serverAddrString, remoteAddrString17)
 	go sshForward(localAddrString18, serverAddrString, remoteAddrString18)
 	//go sshForward(localAddrString19, serverAddrString, remoteAddrString19) ////上报库
 	execRoot()
@@ -158,7 +158,7 @@ func sshForward(localAddr_agement, serverAddr_agement, remoteAddr_agement string
 		if err != nil {
 			fmt.Sprintf("listen.Accept failed: %v", err)
 		}
-		go forward(localConn, config, serverAddr_agement, remoteAddr_agement)
+		forward(localConn, config, serverAddr_agement, remoteAddr_agement)
 	}
 }
 
